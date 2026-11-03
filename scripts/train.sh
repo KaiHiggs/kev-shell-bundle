@@ -8,6 +8,15 @@ DATA=${1:-$HERE/data/train.jsonl}
 EPOCHS=${EPOCHS:-2}
 OUT=${OUT:-$HERE/runs/kev-shell-0.8b}
 mkdir -p "$HERE/runs"
+# The trainer refuses an existing --out. A directory without head.pt is a stub from an aborted attempt: move it aside.
+if [ -e "$OUT" ]; then
+  if [ -f "$OUT/head.pt" ]; then
+    echo "ERROR: $OUT already holds a finished run. Move it, or choose another output: OUT=$OUT.$(date +%s) bash scripts/train.sh" >&2
+    exit 1
+  fi
+  echo "moving the aborted run aside: $OUT -> $OUT.stale-$(date +%s)"
+  mv "$OUT" "$OUT.stale-$(date +%s)"
+fi
 cd "$UP"
 export PYTHONPATH="$UP" HF_HUB_DISABLE_TELEMETRY=1
 # ROCm: bf16 weights halve memory. If you hit a bf16 kernel crash, append --weights_dtype fp32 --checkpointing 1.
