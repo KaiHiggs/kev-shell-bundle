@@ -15,4 +15,4 @@ d014a934ddbf1b0607bce63b77c1f6cc973a9f400e79cb0d282ceb1446b1cdc9  ./eval/eval-fi
 4f039ba2135d6644a1071f34b3590238c9684b3bccc125638bb378ee2d689dfa  ./scripts/bootstrap.sh
 c285497f00b3329c3e8b5be8b6f26645cf2678c099f2d0530e117f1cf0f5142f  ./scripts/eval.sh
 a093d9f498dbe5b36a9bd24b15a591e21a4bad24b36bdbca2e9cb7ed61946c8a  ./scripts/serve.sh
-a6778748cf9275f91f8d577ee9c6ccfad471f0c644b2d607fedd1b43abd93a4a  ./scripts/train.sh
+7f77cc8f3fbf2d40a0539d18386c182e6d53dfd19f86f45a8772fceecf1974d0  ./scripts/train.sh
