@@ -1,0 +1,6 @@
+upstream: https://github.com/jaredpalmer/kev
+commit:   2074cc44256200bb37540103fa4572901faa10f3
+base:     Qwen/Qwen3.5-0.8B-Base@dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68
+tokenizer_checkpoint: jaredpalmer/kev-0.8b@bf75a6a8848ea6960ff2ed108d9ed44c2941174f
+dataset:  ../data/dataset (2,350 records; 16 runs; run-level splits)
+train ctx: 2048 state / 2688 branch / 3712 packed  (max observed state 1,723 tokens)
