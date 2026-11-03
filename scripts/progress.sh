@@ -32,15 +32,16 @@ frame() {
       for(i=1;i<=NF;i++){ if($i ~ /s\/rec$/){ srec=$i; sub(/s\/rec$/,"",srec) } }
       printf "%s %s %s %s %s\n", ep, step, steps, $5, srec
     }' <<<"$line")"
-  total=$((EPOCHS * steps))
-  done=$((ep * steps + step))
+  # kev prints a global step count: "<step>/<steps>" already spans every epoch, so steps is the total.
+  total=$steps
+  done=$step
   [ "$total" -le 0 ] && total=1
   pct=$((done * 100 / total)); [ "$pct" -gt 100 ] && pct=100
   filled=$((pct * WIDTH / 100)); empty=$((WIDTH - filled))
   bar=$(printf '%*s' "$filled" '' | tr ' ' '#')$(printf '%*s' "$empty" '')
   eta=$(awk -v r=$((total - done)) -v a="$ACCUM" -v s="$srec" 'BEGIN{v=r*a*s; if(v<=0){print "—"} else if(v<60){printf "%.0fs",v} else {printf "%.0fm",v/60}}')
-  printf '\r[%s] %3d%%  ep%s %s/%s  loss %s  %ss/rec  eta %s   ' \
-    "$bar" "$pct" "$ep" "$step" "$steps" "$loss" "$srec" "$eta"
+  printf '\r[%s] %3d%%  ep%d/%s %s/%s  loss %s  %ss/rec  eta %s   ' \
+    "$bar" "$pct" "$((ep + 1))" "$EPOCHS" "$step" "$steps" "$loss" "$srec" "$eta"
 }
 
 if [ "$ONCE" = 1 ]; then frame; echo; exit 0; fi
